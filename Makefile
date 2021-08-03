@@ -322,6 +322,7 @@ dev-image: ## Build developer image
 		VPP_IMG=$(VPP_IMG) VPP_VERSION=$(VPP_VERSION) VPP_BINAPI=$(VPP_BINAPI) \
 		VERSION=$(VERSION) COMMIT=$(COMMIT) BRANCH=$(BRANCH) \
 		BUILD_DATE=$(BUILD_DATE) \
+
 	  ./docker/dev/build.sh
 
 prod-image: ## Build production image
