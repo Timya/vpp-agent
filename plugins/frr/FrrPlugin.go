@@ -109,7 +109,7 @@ func (p *FRRPlugin) updater() {
 	} else if !found {
 		p.Log.Info("No greetings found..")
 	} else {
-		p.Log.Infof("Found some greetings: %+v", value)
+		p.Log.Infof(" iFound some greetings: %+v", value)
 	}
 
 	// Wait few seconds
@@ -119,7 +119,7 @@ func (p *FRRPlugin) updater() {
 
 	// Prepare data
 	value = &model.Greetings{
-		Greeting: "Hello",
+		Greeting: "Hello1111111111111",
 	}
 
 	// Update value in KV store
