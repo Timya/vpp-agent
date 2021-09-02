@@ -1,22 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"go.ligato.io/cn-infra/v2/agent"
 	"go.ligato.io/cn-infra/v2/logging"
-	"go.ligato.io/cn-infra/v2/rpc/rest"
 	frr "go.ligato.io/vpp-agent/v3/plugins/frr"
 )
-
-func ChangeLogLevel(p *rest.Plugin) {
-	if p.Deps.Log == nil {
-		fmt.Println(p.String())
-		p.Deps.Log = logging.ForPlugin(p.String())
-
-	}
-}
 
 func main() {
 	/* p := new(HelloWorld)
@@ -34,7 +24,8 @@ func main() {
 	   	option := rest.UseConf(restConf)
 	   	p.REST = rest.NewPlugin(option, ChangeLogLevel) */
 	p.Deps.Log.SetLevel(logging.DebugLevel)
-
+	p.Log.Debugf("FRR plugin starting wit name %v", p.PluginName.String())
+	p.Log.Debugf("FRR plugin starting wit Config name %v", p.Cfg.GetConfigName())
 	a := agent.NewAgent(agent.AllPlugins(p))
 	if err := a.Run(); err != nil {
 		log.Fatalln(err)

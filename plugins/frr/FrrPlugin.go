@@ -19,7 +19,6 @@ import (
 
 type FRRPlugin struct {
 	Deps
-	config      *Config
 	watchCloser chan string
 }
 
@@ -44,19 +43,14 @@ func (p *FRRPlugin) fooHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-func (p *FRRPlugin) String() string {
-
-	return "FRRPlugin"
-}
-
 func (p *FRRPlugin) Init() (err error) {
 	p.Log.Info("Loading Config")
 
-	if p.config, err = p.loadConfig(); err != nil {
+	if _, err = p.loadConfig(); err != nil {
 		return err
 	}
 
-	p.Log.Infof("config: %+v", p.config)
+	// p.Log.Infof("config: %+v", p.config)
 	/* 	if p.REST != nil {
 	   		p.REST.RegisterHTTPHandler("/greeding", p.fooHandler, "GET")
 	   	}
@@ -140,6 +134,7 @@ func NewFRRPlugin() *FRRPlugin {
 	}
 	// p.REST = &rest.DefaultPlugin
 	p.PluginName = "frr"
+	p.SetName("frr")
 	p.Setup()
 	//initialize kvs
 	p.KVStore = &etcd.DefaultPlugin
